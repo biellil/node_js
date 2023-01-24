@@ -1,11 +1,11 @@
 const express = require('express');
-let routesCode = require('./routes/code');
-let routesUsers = require('./routes/user');
+const consign = require('consign');
+const  bodyParses = require('body-parser');
 
 let app = express();
 
-app.use(routesCode);
-app.use('/users', routesUsers);
+consign().include('routes').into(app);
+
 
 app.listen(3000, '127.0.0.1', () => {
 
