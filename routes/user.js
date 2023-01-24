@@ -20,7 +20,11 @@ routes.get('/admin', (req, res) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
     res.json({
-        users: []
+        users: [{
+
+        
+            name:'123',
+        }]
     });
 
 });
