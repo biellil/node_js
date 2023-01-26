@@ -1,10 +1,11 @@
-module.exports = function(app){
+module.exports = (app) => {
 
-    app.use('/', (req, res) => {
+    app.get('/', (req, res) => {
 
         res.statusCode = 200;
         res.setHeader('Content-Type', 'text/html');
         res.end('<h1>Olá</h1>');
-    
+
     });
+
 };
