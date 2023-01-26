@@ -27,7 +27,18 @@ module.exports = app => {
         
     
     route.post((req, res) => {
-  
+
+        req.assert('name','O nome é obrigatorio.').notEmpty();
+        req.assert('name','O e-mail esta inválido.').notEmpty().isEmail();
+
+        let erros = req.validationErrors();
+        if(errors){
+
+            app.utils.error.send(erros,req,res);
+            return false;
+
+        };
+        
         db.insert(req.body,(err,user)=>{
 
             if(err){
@@ -58,4 +69,33 @@ module.exports = app => {
         });
     });
     
+    routeai.put((req,res)=>{
+
+        db.update({_id:req.params.id},req.body,err =>{
+            if(err){
+                app.utils.error.send(err,req,res);
+                
+            }
+              else{
+                    res.status(200).json(Object.assign( req.body, req.params))
+            }
+
+        
+        });
+    });
+
+    routeai.delete((req,res)=>{
+
+        db.remove({_id:req.params.id},{},err =>{
+            if(err){
+                app.utils.error.send(err,req,res);
+                
+            }
+              else{
+                    res.status(200).json(req.params);
+            }
+
+        
+        });
+    });
 };
